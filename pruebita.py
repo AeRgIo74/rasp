@@ -23,5 +23,5 @@ try:
         time.sleep(1)  # Esperar 1 segundo
 
 except KeyboardInterrupt:
-    # Limpiar la configuración de los pines al salir
+    
     GPIO.cleanup()
