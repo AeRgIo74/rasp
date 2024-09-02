@@ -12,16 +12,10 @@ GPIO.setup(LED_PIN, GPIO.OUT)
 
 try:
     while True:
-        # Encender el LED
-        GPIO.output(LED_PIN, GPIO.HIGH)
-        print("Hola Mundo: LED encendido")
+        GPIO.output(LED_PIN, GPIO.HIGH)  # Encender el LED
         time.sleep(1)  # Esperar 1 segundo
-
-        # Apagar el LED
-        GPIO.output(LED_PIN, GPIO.LOW)
-        print("Hola Mundo: LED apagado")
+        GPIO.output(LED_PIN, GPIO.LOW)   # Apagar el LED
         time.sleep(1)  # Esperar 1 segundo
 
 except KeyboardInterrupt:
-    # Limpiar la configuración de los pines al salir
-    GPIO.cleanup()
+    GPIO.cleanup()  # Limpiar los pines al salir
