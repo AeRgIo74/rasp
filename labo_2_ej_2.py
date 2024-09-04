@@ -3,7 +3,7 @@ from time import sleep
 
 # Inicializar los LEDs en los pines correspondientes
 leds = [
-    LED(17),  # LED 1 en el pin GPIO 17
+    LED(17),  # LED 1 en el pin GPIO 17rt
     LED(27),  # LED 2 en el pin GPIO 27
     LED(22),  # LED 3 en el pin GPIO 22
     LED(23),  # LED 4 en el pin GPIO 23
