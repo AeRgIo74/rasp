@@ -1,0 +1,2 @@
+solo valores enterons de 1-9
+tiempo=6
