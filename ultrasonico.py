@@ -12,12 +12,11 @@ try:
         timeout=1
     )
     while True:
-        distancia = sensor.distance * 100  # La distancia se da en metros, multiplicamos por 100 para convertir a cm
-        print(f"Distancia: {distancia:.2f} cm")
+        distancia = int(sensor.distance * 100)  # Convertir a entero al multiplicar por 100
+        print(f"Distancia: {distancia} cm")  # Imprimir como entero
         sleep(1)  # Pausa de 1 segundo entre lecturas
-        # Envía el valor del tiempo al puerto serial
+        # Envía el valor del tiempo al puerto serial como entero
         ser.write(f'{distancia}\n'.encode())
-
 
 except serial.SerialException as e:
     print(f"Error en la comunicación serial: {e}")
