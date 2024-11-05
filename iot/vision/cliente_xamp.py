@@ -3,14 +3,22 @@ import websockets
 import json
 
 async def send_data():
-    async with websockets.connect('ws://localhost:6789') as websocket:
+    async with websockets.connect('ws://192.168.0.67:8080') as websocket:
+        # Ingresar datos por terminal
+        fibomassi = float(input("Ingrese el valor de Fibomassi: "))
+        error_fibomassi = float(input("Ingrese el valor de ErrorFibomassi: "))
+        error = float(input("Ingrese el valor de Error: "))
+        rgb = input("Ingrese el valor de RGB (ejemplo: #FF0000): ")
+        n_fibomassi = int(input("Ingrese el valor de NFibomassi: "))
+
         data = {
-            'Fibomassi': 1.23,
-            'ErrorFibomassi': 0.1,
-            'Error': 0.05,
-            'RGB': '#FF0000',
-            'NFibomassi': 42
+            'Fibomassi': fibomassi,
+            'ErrorFibomassi': error_fibomassi,
+            'Error': error,
+            'RGB': rgb,
+            'NFibomassi': n_fibomassi
         }
+        
         await websocket.send(json.dumps(data))
         print('Datos enviados:', data)
 
