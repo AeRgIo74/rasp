@@ -139,12 +139,15 @@ while True:
     if key == ord('v'):  # Alternar modo de visión nocturna
         night_vision_mode = not night_vision_mode
         prediction_mode = False
+        print("Modo de visión nocturna:", night_vision_mode)
     elif key == ord('p'):  # Alternar modo de predicción
         prediction_mode = not prediction_mode
         night_vision_mode = False
+        print("Modo de predicción:", prediction_mode)
     elif key == ord('q'):  # Salir
         break
 
 # Liberar recursos
 cap.release()
 cv2.destroyAllWindows()
+
