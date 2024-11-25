@@ -5,7 +5,22 @@ from tensorflow.keras.models import load_model
 from gpiozero import Servo
 from time import sleep
 import threading
+import serial
 from sort.sort import Sort  # Implementación de SORT
+
+# Configuración del puerto serie
+PORT = '/dev/rfcomm0'  # Puerto UART
+BAUDRATE = 9600       # Velocidad de comunicación UART
+
+# Inicializar conexión serie
+def init_serial():
+    try:
+        ser = serial.Serial(PORT, BAUDRATE, timeout=1)
+        print(f"Conectado al puerto {PORT} a {BAUDRATE} baudios.")
+        return ser
+    except Exception as e:
+        print(f"Error al conectar con el puerto serie: {e}")
+        return None
 
 # Deshabilitar el uso de la GPU
 tf.config.set_visible_devices([], 'GPU')
@@ -18,6 +33,9 @@ cap = cv2.VideoCapture(0)
 if not cap.isOpened():
     print("Error: No se puede acceder a la cámara.")
     exit()
+
+# Inicializar la conexión UART
+ser = init_serial()
 
 # Nombres de las categorías
 category_names = ['category_Aika', 'category_Simba', 'category_Suzuka', 'category_Tsuki']
@@ -98,6 +116,12 @@ while True:
         predicted_category_prob = predictions[1][0][predicted_category_idx]
         predicted_category_name = category_names[predicted_category_idx]
 
+        # Enviar el mensaje al módulo HC-05 si está conectado
+        if ser and ser.is_open:
+            mensaje_uart = "150"  # Comando a enviar
+            ser.write(mensaje_uart.encode('utf-8'))
+            print(f"Enviado al módulo HC-05: {mensaje_uart}")
+
         # Solo proceder si la probabilidad es >= 60%
         if predicted_category_prob >= 0.6:
             # Escalar las coordenadas de la bounding box al tamaño del frame
@@ -150,4 +174,3 @@ while True:
 # Liberar recursos
 cap.release()
 cv2.destroyAllWindows()
-
