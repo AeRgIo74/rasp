@@ -17,7 +17,8 @@ button = Button(2)  # Cambia el número de pin según tu configuración
 sending_data = True
 
 async def send_data(data):
-    async with websockets.connect('ws://192.168.39.75:8080') as websocket:
+    #async with websockets.connect('ws://192.168.39.75:8080') as websocket:
+    async with websockets.connect('ws://192.168.0.67:8080') as websocket:
         await websocket.send(json.dumps(data))
         print('Datos enviados:', data)
 
